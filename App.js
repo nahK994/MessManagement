@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View, Button, TextInput } from 'react-native';
 import Output from './components/output';
 
@@ -7,6 +7,7 @@ export default function App() {
   const [electricityBill, setElectricityBill] = useState('')
   const [gasBill, setGasBill] = useState('')
   const [internetBill, setInternetBill] = useState('1000')
+  const [khalaBill, setKhalaBill] = useState('2100')
   const [othersBill, setOthersBill] = useState('')
 
   const [khanRent, setKhanRent] = useState('5600')
@@ -20,15 +21,13 @@ export default function App() {
   const [khanBazar, setKhanBazar] = useState('')
   const [riajBazar, setRiajBazar] = useState('')
   const [rajBazar, setRajBazar] = useState('')
-  // useEffect(() => {
-  //   setInternetBill(1000)
-  // }, [internetBill]);
 
   return (
     <View style={styles.main}>
       <TextInput value={electricityBill} onChangeText={(e)=> setElectricityBill(e)} keyboardType='numeric' placeholder='Electricity bill' style={styles.billInput} />
       <TextInput value={gasBill} onChangeText={(e)=> setGasBill(e)} keyboardType='numeric' placeholder='Gas bill' style={styles.billInput} />
       <TextInput value={internetBill} onChangeText={(e)=> setInternetBill(e)} keyboardType='numeric' placeholder='Internet bill' style={styles.billInput} />
+      <TextInput value={khalaBill} onChangeText={(e)=> setKhalaBill(e)} keyboardType='numeric' placeholder='Khala bill' style={styles.billInput} />
       <TextInput value={othersBill} onChangeText={(e)=> setOthersBill(e)} keyboardType='numeric' placeholder='Others..' style={styles.billInput} />
 
       <View style={styles.memberLayout}>
@@ -57,6 +56,7 @@ export default function App() {
         electricityBill={electricityBill}
         gasBill={gasBill}
         internetBill={internetBill}
+        khalaBill={khalaBill}
         othersBill={othersBill}
 
         khanRent={khanRent}

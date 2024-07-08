@@ -1,12 +1,13 @@
-import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, ScrollView } from 'react-native';
 import OutputPerPerson from './output-per-person';
 
 export default function Output(props) {
     var gasBillPerPerson = (props.gasBill / 3).toFixed(2);
     var electricityBillPerPerson = (props.electricityBill / 3).toFixed(2);
     var internetBillPerPerson = (props.internetBill / 3).toFixed(2);
+    var khalaBillPerPerson = (props.khalaBill / 3).toFixed(2);
     var othersBillPerPerson = (props.othersBill / 3).toFixed(2);
-    var totalUtilityCostPerson = parseFloat((parseFloat(electricityBillPerPerson) + parseFloat(gasBillPerPerson) + parseFloat(internetBillPerPerson) + parseFloat(othersBillPerPerson)).toFixed(2));
+    var totalUtilityCostPerson = parseFloat((parseFloat(gasBillPerPerson)+parseFloat(electricityBillPerPerson)+parseFloat(internetBillPerPerson)+parseFloat(khalaBillPerPerson)+parseFloat(othersBillPerPerson)).toFixed(2));
 
     var totalMeal = parseInt(props.khanMeal) + parseInt(props.rajMeal) + parseInt(props.riajMeal);
     var totalBazar = parseInt(props.khanBazar) + parseInt(props.rajBazar) + parseInt(props.riajBazar);
@@ -15,78 +16,84 @@ export default function Output(props) {
     return (
         <Modal visible={props.visibility} animationType='slide'>
             <View style={styles.main}>
-                <View style={styles.card}>
-                    <Text style={styles.headerText}>Utility cost (Per person)</Text>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Electricity bill:</Text>
-                        <Text style={styles.value}>{electricityBillPerPerson}</Text>
+                <ScrollView contentContainerStyle={styles.scrollContent}>
+                    <View style={styles.card}>
+                        <Text style={styles.headerText}>Utility cost (Per person)</Text>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Electricity bill:</Text>
+                            <Text style={styles.value}>{electricityBillPerPerson}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Gas bill:</Text>
+                            <Text style={styles.value}>{gasBillPerPerson}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Internet bill:</Text>
+                            <Text style={styles.value}>{internetBillPerPerson}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Khala bill:</Text>
+                            <Text style={styles.value}>{khalaBillPerPerson}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Others cost:</Text>
+                            <Text style={styles.value}>{othersBillPerPerson}</Text>
+                        </View>
+                        <View style={styles.separator} />
+                        <View style={styles.row}>
+                            <Text style={styles.totalLabel}>TOTAL:</Text>
+                            <Text style={styles.totalValue}>{totalUtilityCostPerson}</Text>
+                        </View>
                     </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Gas bill:</Text>
-                        <Text style={styles.value}>{gasBillPerPerson}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Internet bill:</Text>
-                        <Text style={styles.value}>{internetBillPerPerson}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Others cost:</Text>
-                        <Text style={styles.value}>{othersBillPerPerson}</Text>
-                    </View>
-                    <View style={styles.separator} />
-                    <View style={styles.row}>
-                        <Text style={styles.totalLabel}>TOTAL:</Text>
-                        <Text style={styles.totalValue}>{totalUtilityCostPerson}</Text>
-                    </View>
-                </View>
 
-                <View style={styles.card}>
-                    <Text style={styles.headerText}>Meal</Text>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Total Bazar:</Text>
-                        <Text style={styles.value}>{totalBazar}</Text>
+                    <View style={styles.card}>
+                        <Text style={styles.headerText}>Meal</Text>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Total Bazar:</Text>
+                            <Text style={styles.value}>{totalBazar}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Total Meal:</Text>
+                            <Text style={styles.value}>{totalMeal}</Text>
+                        </View>
+                        <View style={styles.separator} />
+                        <View style={styles.row}>
+                            <Text style={styles.totalLabel}>Meal RATE:</Text>
+                            <Text style={styles.totalValue}>{mealRate}</Text>
+                        </View>
                     </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Total Meal:</Text>
-                        <Text style={styles.value}>{totalMeal}</Text>
-                    </View>
-                    <View style={styles.separator} />
-                    <View style={styles.row}>
-                        <Text style={styles.totalLabel}>Meal RATE:</Text>
-                        <Text style={styles.totalValue}>{(totalBazar / totalMeal).toFixed(2)}</Text>
-                    </View>
-                </View>
 
-                <OutputPerPerson
-                    name="Khan"
-                    bazar={props.khanBazar}
-                    meal={props.khanMeal}
-                    rent={props.khanRent}
-                    mealRate={mealRate}
-                    totalUtilityCostPerson={totalUtilityCostPerson}
-                />
+                    <OutputPerPerson
+                        name="Khan"
+                        bazar={props.khanBazar}
+                        meal={props.khanMeal}
+                        rent={props.khanRent}
+                        mealRate={mealRate}
+                        totalUtilityCostPerson={totalUtilityCostPerson}
+                    />
 
-                <OutputPerPerson
-                    name="Raj"
-                    bazar={props.rajBazar}
-                    meal={props.rajMeal}
-                    rent={props.rajRent}
-                    mealRate={mealRate}
-                    totalUtilityCostPerson={totalUtilityCostPerson}
-                />
+                    <OutputPerPerson
+                        name="Raj"
+                        bazar={props.rajBazar}
+                        meal={props.rajMeal}
+                        rent={props.rajRent}
+                        mealRate={mealRate}
+                        totalUtilityCostPerson={totalUtilityCostPerson}
+                    />
 
-                <OutputPerPerson
-                    name="Riaj"
-                    bazar={props.riajBazar}
-                    meal={props.riajMeal}
-                    rent={props.riajRent}
-                    mealRate={mealRate}
-                    totalUtilityCostPerson={totalUtilityCostPerson}
-                />
+                    <OutputPerPerson
+                        name="Riaj"
+                        bazar={props.riajBazar}
+                        meal={props.riajMeal}
+                        rent={props.riajRent}
+                        mealRate={mealRate}
+                        totalUtilityCostPerson={totalUtilityCostPerson}
+                    />
 
-                <TouchableOpacity style={styles.button} onPress={() => props.setVisibility(false)}>
-                    <Text style={styles.buttonText}>Ok</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={() => props.setVisibility(false)}>
+                        <Text style={styles.buttonText}>Ok</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
         </Modal>
     );
@@ -99,6 +106,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#e3f2fd',
         padding: 20
+    },
+    scrollContent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: 20,
+        paddingTop: 20
     },
     card: {
         backgroundColor: '#ffffff',

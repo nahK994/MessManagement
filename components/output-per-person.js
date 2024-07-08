@@ -1,33 +1,49 @@
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function OutputPerPerson(props) {
-    var mealCost = props.mealRate*props.meal
-    var mealBalance = mealCost-parseInt(props.bazar)
+    var mealCost = (props.mealRate * props.meal).toFixed(2);
+    var mealBalance = (mealCost - parseInt(props.bazar)).toFixed(2);
 
-    return <View style={styles.card}>
-        <Text style={styles.headerText}>{props.name}</Text>
-        <View style={styles.row}>
-            <Text style={styles.label}>Bazar:</Text>
-            <Text style={styles.value}>{props.bazar}</Text>
+    return (
+        <View style={styles.card}>
+            <Text style={styles.headerText}>{props.name}</Text>
+            <View style={styles.row}>
+                <Text style={styles.label}>Rent:</Text>
+                <Text style={styles.value}>{props.rent}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Bazar:</Text>
+                <Text style={styles.value}>{props.bazar}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.label}>Meal:</Text>
+                <Text style={styles.value}>{props.meal}</Text>
+            </View>
+            <View style={styles.row}>
+                <View style={styles.labelColumn}>
+                    <Text>Meal cost:</Text>
+                    <Text style={styles.smallText}>(Meal x Meal_Rate)</Text>
+                </View>
+                <Text style={styles.value}>{mealCost}</Text>
+            </View>
+            <View style={styles.row}>
+                <View style={styles.labelColumn}>
+                    <Text>Meal balance:</Text>
+                    <Text style={styles.smallText}>(Meal cost - bazar)</Text>
+                </View>
+                <Text style={styles.value}>{mealBalance}</Text>
+            </View>
+
+            <View style={styles.separator} />
+            <View style={styles.row}>
+                <View style={styles.labelColumn}>
+                    <Text style={styles.totalLabel}>Total:</Text>
+                    <Text style={styles.smallText}>(Rent+Utility+Meal balance)</Text>
+                </View>
+                <Text style={styles.totalValue}>{(parseFloat(props.rent) + parseInt(props.totalUtilityCostPerson) + parseFloat(mealBalance)).toFixed(2)}</Text>
+            </View>
         </View>
-        <View style={styles.row}>
-            <Text style={styles.label}>Meal:</Text>
-            <Text style={styles.value}>{props.meal}</Text>
-        </View>
-        <View style={styles.row}>
-            <Text style={styles.label}>Meal cost (Meal x Meal_Rate):</Text>
-            <Text style={styles.value}>{mealCost}</Text>
-        </View>
-        <View style={styles.row}>
-            <Text style={styles.label}>Meal balance (Meal cost - bazar):</Text>
-            <Text style={styles.value}>{mealBalance}</Text>
-        </View>
-        <View style={styles.separator} />
-        <View style={styles.row}>
-            <Text style={styles.totalLabel}>TOTAL (Rent+Utility+Meal balance):</Text>
-            <Text style={styles.totalValue}>{(parseInt(props.rent) + parseInt(props.totalUtilityCostPerson) + mealBalance).toFixed(2)}</Text>
-        </View>
-    </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -64,12 +80,19 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#555'
+        color: '#555',
+    },
+    labelColumn: {
+        flexDirection: 'column',
     },
     value: {
         fontSize: 16,
         color: '#555',
         fontWeight: 'bold'
+    },
+    smallText: {
+        fontSize: 10,
+        color: '#555',
     },
     totalLabel: {
         fontSize: 18,
@@ -86,4 +109,4 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginVertical: 10
     }
-})
+});
