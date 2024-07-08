@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [text, setText] = useState('')
-  const [enteredText, setEnteredText] = useState('')
+  const [enteredText, setEnteredText] = useState([])
 
   function onChangeText(newText) {
     setText(newText)
@@ -14,22 +14,26 @@ export default function App() {
     setText('')
   }
 
+  function onDeleteHandler(item) {
+    setEnteredText(enteredText.filter(i => i != item))
+  }
+
   return (
-    <View style={style.main}>
-      <View style={style.input}>
-        <TextInput placeholder='Type here.....' style={style.textInput} onChangeText={onChangeText} value={text} />
-        <Button title='Click' style={style.button} onPress={onButtonPress} />
+    <View style={styles.main}>
+      <View style={styles.input}>
+        <TextInput placeholder='Type here.....' style={styles.textInput} onChangeText={onChangeText} value={text} />
+        <Button title='Add' style={styles.button} onPress={onButtonPress} />
       </View>
-      <View style={style['text-alignment']}>
+      <View style={styles.textAlignment}>
         {
-          enteredText.map(item => <Text style={style.item}>{item}</Text>)
+          enteredText.map((item, index) => <TouchableOpacity><Text onPress={() => onDeleteHandler(item)} key={index} style={styles.item}>{item}</Text></TouchableOpacity>)
         }
       </View>
     </View>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   'main': {
     flexDirection: 'column',
     height: '100%',
@@ -54,7 +58,7 @@ const style = StyleSheet.create({
   'button': {
     flex: 1
   },
-  'text-alignment': {
+  'textAlignment': {
     flexDirection: 'row',
     gap: 12,
     flexWrap: 'wrap'
