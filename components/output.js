@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
+import OutputPerPerson from './output-per-person';
 
 export default function Output(props) {
     var gasBillPerPerson = (props.gasBill / 3).toFixed(2);
     var electricityBillPerPerson = (props.electricityBill / 3).toFixed(2);
     var internetBillPerPerson = (props.internetBill / 3).toFixed(2);
     var othersBillPerPerson = (props.othersBill / 3).toFixed(2);
-    var totalUtilityCostPerson = parseFloat(electricityBillPerPerson) + parseFloat(gasBillPerPerson) + parseFloat(internetBillPerPerson) + parseFloat(othersBillPerPerson);
+    var totalUtilityCostPerson = parseFloat((parseFloat(electricityBillPerPerson) + parseFloat(gasBillPerPerson) + parseFloat(internetBillPerPerson) + parseFloat(othersBillPerPerson)).toFixed(2));
 
     var totalMeal = parseInt(props.khanMeal) + parseInt(props.rajMeal) + parseInt(props.riajMeal);
     var totalBazar = parseInt(props.khanBazar) + parseInt(props.rajBazar) + parseInt(props.riajBazar);
+    var mealRate = parseFloat((totalBazar / totalMeal).toFixed(2));
 
     return (
         <Modal visible={props.visibility} animationType='slide'>
@@ -38,7 +39,7 @@ export default function Output(props) {
                         <Text style={styles.totalValue}>{totalUtilityCostPerson}</Text>
                     </View>
                 </View>
-                
+
                 <View style={styles.card}>
                     <Text style={styles.headerText}>Meal</Text>
                     <View style={styles.row}>
@@ -55,6 +56,33 @@ export default function Output(props) {
                         <Text style={styles.totalValue}>{(totalBazar / totalMeal).toFixed(2)}</Text>
                     </View>
                 </View>
+
+                <OutputPerPerson
+                    name="Khan"
+                    bazar={props.khanBazar}
+                    meal={props.khanMeal}
+                    rent={props.khanRent}
+                    mealRate={mealRate}
+                    totalUtilityCostPerson={totalUtilityCostPerson}
+                />
+
+                <OutputPerPerson
+                    name="Raj"
+                    bazar={props.rajBazar}
+                    meal={props.rajMeal}
+                    rent={props.rajRent}
+                    mealRate={mealRate}
+                    totalUtilityCostPerson={totalUtilityCostPerson}
+                />
+
+                <OutputPerPerson
+                    name="Riaj"
+                    bazar={props.riajBazar}
+                    meal={props.riajMeal}
+                    rent={props.riajRent}
+                    mealRate={mealRate}
+                    totalUtilityCostPerson={totalUtilityCostPerson}
+                />
 
                 <TouchableOpacity style={styles.button} onPress={() => props.setVisibility(false)}>
                     <Text style={styles.buttonText}>Ok</Text>
