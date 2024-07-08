@@ -26,32 +26,51 @@ export default function App() {
 
   return (
     <View style={styles.main}>
-      <TextInput value={electricityBill} keyboardType='numeric' placeholder='Electricity bill' style={styles.billInput} />
-      <TextInput value={gasBill} keyboardType='numeric' placeholder='Gas bill' style={styles.billInput} />
-      <TextInput value={internetBill} keyboardType='numeric' placeholder='Internet bill' style={styles.billInput} />
-      <TextInput value={othersBill} keyboardType='numeric' placeholder='Others..' style={styles.billInput} />
+      <TextInput value={electricityBill} onChangeText={(e)=> setElectricityBill(e)} keyboardType='numeric' placeholder='Electricity bill' style={styles.billInput} />
+      <TextInput value={gasBill} onChangeText={(e)=> setGasBill(e)} keyboardType='numeric' placeholder='Gas bill' style={styles.billInput} />
+      <TextInput value={internetBill} onChangeText={(e)=> setInternetBill(e)} keyboardType='numeric' placeholder='Internet bill' style={styles.billInput} />
+      <TextInput value={othersBill} onChangeText={(e)=> setOthersBill(e)} keyboardType='numeric' placeholder='Others..' style={styles.billInput} />
 
       <View style={styles.memberLayout}>
-        <TextInput value={khanRent} keyboardType='numeric' placeholder="Khan's Rent" style={styles.memberInput} />
-        <TextInput value={khanBazar} keyboardType='numeric' placeholder="Khan's Bazar" style={styles.memberInput} />
-        <TextInput value={khanMeal} keyboardType='numeric' placeholder="Khan's Meal" style={styles.memberInput} />
+        <TextInput value={khanRent} onChangeText={(e)=> setKhanRent(e)} keyboardType='numeric' placeholder="Khan's Rent" style={styles.memberInput} />
+        <TextInput value={khanBazar} onChangeText={(e)=> setKhanBazar(e)} keyboardType='numeric' placeholder="Khan's Bazar" style={styles.memberInput} />
+        <TextInput value={khanMeal} onChangeText={(e)=> setKhanMeal(e)} keyboardType='numeric' placeholder="Khan's Meal" style={styles.memberInput} />
       </View>
 
       <View style={styles.memberLayout}>
-        <TextInput value={rajRent} keyboardType='numeric' placeholder="Raj's Rent" style={styles.memberInput} />
-        <TextInput value={rajBazar} keyboardType='numeric' placeholder="Raj's Bazar" style={styles.memberInput} />
-        <TextInput value={rajMeal} keyboardType='numeric' placeholder="Raj's Meal" style={styles.memberInput} />
+        <TextInput value={rajRent} onChangeText={(e)=> setRajRent(e)} keyboardType='numeric' placeholder="Raj's Rent" style={styles.memberInput} />
+        <TextInput value={rajBazar} onChangeText={(e)=> setRajBazar(e)} keyboardType='numeric' placeholder="Raj's Bazar" style={styles.memberInput} />
+        <TextInput value={rajMeal} onChangeText={(e)=> setRajMeal(e)} keyboardType='numeric' placeholder="Raj's Meal" style={styles.memberInput} />
       </View>
 
       <View style={styles.memberLayout}>
-        <TextInput value={riajRent} keyboardType='numeric' placeholder="Riaj's Rent" style={styles.memberInput} />
-        <TextInput value={riajBazar} keyboardType='numeric' placeholder="Riaj's Bazar" style={styles.memberInput} />
-        <TextInput value={riajMeal} keyboardType='numeric' placeholder="Riaj's Meal" style={styles.memberInput} />
+        <TextInput value={riajRent} onChangeText={(e)=> setRiajRent(e)} keyboardType='numeric' placeholder="Riaj's Rent" style={styles.memberInput} />
+        <TextInput value={riajBazar} onChangeText={(e)=> setRiajBazar(e)} keyboardType='numeric' placeholder="Riaj's Bazar" style={styles.memberInput} />
+        <TextInput value={riajMeal} onChangeText={(e)=> setRiajMeal(e)} keyboardType='numeric' placeholder="Riaj's Meal" style={styles.memberInput} />
       </View>
 
       <Button title='Submit' style={styles.button} onPress={() => setIsOpen(!isOpen)} />
 
-      <Output visibility={isOpen} setVisibility={setIsOpen} />
+      <Output
+        visibility={isOpen}
+        setVisibility={setIsOpen}
+        electricityBill={electricityBill}
+        gasBill={gasBill}
+        internetBill={internetBill}
+        othersBill={othersBill}
+
+        khanRent={khanRent}
+        khanBazar={khanBazar}
+        khanMeal={khanMeal}
+
+        rajBazar={rajBazar}
+        rajMeal={rajMeal}
+        rajRent={rajRent}
+
+        riajBazar={riajBazar}
+        riajMeal={riajMeal}
+        riajRent={rajRent}
+      />
     </View>
   );
 }
