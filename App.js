@@ -1,34 +1,57 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, View, Button, TextInput } from 'react-native';
+import Output from './components/output';
 
 export default function App() {
-  const [text, setText] = useState('')
-  const [enteredText, setEnteredText] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
+  const [electricityBill, setElectricityBill] = useState('')
+  const [gasBill, setGasBill] = useState('')
+  const [internetBill, setInternetBill] = useState('1000')
+  const [othersBill, setOthersBill] = useState('')
 
-  function onChangeText(newText) {
-    setText(newText)
-  }
+  const [khanRent, setKhanRent] = useState('5600')
+  const [riajRent, setRiajRent] = useState('2875')
+  const [rajRent, setRajRent] = useState('3025')
 
-  function onButtonPress() {
-    setEnteredText([...enteredText, text])
-    setText('')
-  }
+  const [khanMeal, setKhanMeal] = useState('')
+  const [riajMeal, setRiajMeal] = useState('')
+  const [rajMeal, setRajMeal] = useState('')
 
-  function onDeleteHandler(item) {
-    setEnteredText(enteredText.filter(i => i != item))
-  }
+  const [khanBazar, setKhanBazar] = useState('')
+  const [riajBazar, setRiajBazar] = useState('')
+  const [rajBazar, setRajBazar] = useState('')
+  // useEffect(() => {
+  //   setInternetBill(1000)
+  // }, [internetBill]);
 
   return (
     <View style={styles.main}>
-      <View style={styles.input}>
-        <TextInput placeholder='Type here.....' style={styles.textInput} onChangeText={onChangeText} value={text} />
-        <Button title='Add' style={styles.button} onPress={onButtonPress} />
+      <TextInput value={electricityBill} keyboardType='numeric' placeholder='Electricity bill' style={styles.billInput} />
+      <TextInput value={gasBill} keyboardType='numeric' placeholder='Gas bill' style={styles.billInput} />
+      <TextInput value={internetBill} keyboardType='numeric' placeholder='Internet bill' style={styles.billInput} />
+      <TextInput value={othersBill} keyboardType='numeric' placeholder='Others..' style={styles.billInput} />
+
+      <View style={styles.memberLayout}>
+        <TextInput value={khanRent} keyboardType='numeric' placeholder="Khan's Rent" style={styles.memberInput} />
+        <TextInput value={khanBazar} keyboardType='numeric' placeholder="Khan's Bazar" style={styles.memberInput} />
+        <TextInput value={khanMeal} keyboardType='numeric' placeholder="Khan's Meal" style={styles.memberInput} />
       </View>
-      <View style={styles.textAlignment}>
-        {
-          enteredText.map((item, index) => <TouchableOpacity><Text onPress={() => onDeleteHandler(item)} key={index} style={styles.item}>{item}</Text></TouchableOpacity>)
-        }
+
+      <View style={styles.memberLayout}>
+        <TextInput value={rajRent} keyboardType='numeric' placeholder="Raj's Rent" style={styles.memberInput} />
+        <TextInput value={rajBazar} keyboardType='numeric' placeholder="Raj's Bazar" style={styles.memberInput} />
+        <TextInput value={rajMeal} keyboardType='numeric' placeholder="Raj's Meal" style={styles.memberInput} />
       </View>
+
+      <View style={styles.memberLayout}>
+        <TextInput value={riajRent} keyboardType='numeric' placeholder="Riaj's Rent" style={styles.memberInput} />
+        <TextInput value={riajBazar} keyboardType='numeric' placeholder="Riaj's Bazar" style={styles.memberInput} />
+        <TextInput value={riajMeal} keyboardType='numeric' placeholder="Riaj's Meal" style={styles.memberInput} />
+      </View>
+
+      <Button title='Submit' style={styles.button} onPress={() => setIsOpen(!isOpen)} />
+
+      <Output visibility={isOpen} setVisibility={setIsOpen} />
     </View>
   );
 }
@@ -37,36 +60,32 @@ const styles = StyleSheet.create({
   'main': {
     flexDirection: 'column',
     height: '100%',
+    width: '100%',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     padding: 20,
     rowGap: 12
   },
-  'input': {
+  'billInput': {
+    borderColor: 'steelblue',
+    borderWidth: 2,
+    borderRadius: 20,
+    padding: 10,
+    width: '100%'
+  },
+
+  'memberLayout': {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    columnGap: 12
+    alignContent: 'center',
+    columnGap: 8
   },
-  'textInput': {
-    borderColor: 'green',
-    borderWidth: 1,
-    flex: 2,
+
+  'memberInput': {
+    borderColor: 'steelblue',
+    borderWidth: 2,
     borderRadius: 20,
-    padding: 10
-  },
-  'button': {
+    padding: 10,
     flex: 1
-  },
-  'textAlignment': {
-    flexDirection: 'row',
-    gap: 12,
-    flexWrap: 'wrap'
-  },
-  'item': {
-    borderRadius: 12,
-    backgroundColor: 'steelblue',
-    padding: 6,
-    color: 'white'
   }
 })
