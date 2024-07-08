@@ -69,7 +69,7 @@ export default function App() {
 
         riajBazar={riajBazar}
         riajMeal={riajMeal}
-        riajRent={rajRent}
+        riajRent={riajRent}
       />
     </View>
   );

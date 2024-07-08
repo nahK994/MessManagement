@@ -7,7 +7,7 @@ export default function Output(props) {
     var internetBillPerPerson = (props.internetBill / 3).toFixed(2);
     var khalaBillPerPerson = (props.khalaBill / 3).toFixed(2);
     var othersBillPerPerson = (props.othersBill / 3).toFixed(2);
-    var totalUtilityCostPerson = parseFloat((parseFloat(gasBillPerPerson)+parseFloat(electricityBillPerPerson)+parseFloat(internetBillPerPerson)+parseFloat(khalaBillPerPerson)+parseFloat(othersBillPerPerson)).toFixed(2));
+    var totalUtilityCostPerson = parseFloat((parseFloat(gasBillPerPerson) + parseFloat(electricityBillPerPerson) + parseFloat(internetBillPerPerson) + parseFloat(khalaBillPerPerson) + parseFloat(othersBillPerPerson)).toFixed(2));
 
     var totalMeal = parseInt(props.khanMeal) + parseInt(props.rajMeal) + parseInt(props.riajMeal);
     var totalBazar = parseInt(props.khanBazar) + parseInt(props.rajBazar) + parseInt(props.riajBazar);
@@ -15,8 +15,8 @@ export default function Output(props) {
 
     return (
         <Modal visible={props.visibility} animationType='slide'>
-            <View style={styles.main}>
-                <ScrollView contentContainerStyle={styles.scrollContent}>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+                <View style={styles.main}>
                     <View style={styles.card}>
                         <Text style={styles.headerText}>Utility cost (Per person)</Text>
                         <View style={styles.row}>
@@ -93,8 +93,8 @@ export default function Output(props) {
                     <TouchableOpacity style={styles.button} onPress={() => props.setVisibility(false)}>
                         <Text style={styles.buttonText}>Ok</Text>
                     </TouchableOpacity>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </Modal>
     );
 };
@@ -104,21 +104,21 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#e3f2fd',
         padding: 20
     },
     scrollContent: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 20,
-        paddingTop: 20
+        paddingBottom: 10,
+        paddingTop: 10,
+        backgroundColor: '#e3f2fd'
     },
     card: {
         backgroundColor: '#ffffff',
         borderRadius: 15,
         padding: 20,
         marginBottom: 20,
-        width: '90%',
+        minWidth: '90%',
         elevation: 3, // For shadow on Android
         shadowColor: '#000', // For shadow on iOS
         shadowOffset: { width: 0, height: 2 },
