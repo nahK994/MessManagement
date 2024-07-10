@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mess Manager",
-    "slug": "mess-management",
+    "slug": "rn-first-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.nahk994.rnfirstapp"
