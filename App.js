@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import Output from './components/output';
 
@@ -18,6 +18,27 @@ export default function App() {
   const [khanBazar, setKhanBazar] = useState('');
   const [riajBazar, setRiajBazar] = useState('');
   const [rajBazar, setRajBazar] = useState('');
+
+  const [memberInfo, setMemberInfo] = useState([
+    {
+      'name': 'Khan',
+      'rent': 5600,
+      'meal': 0,
+      'bazar': 0
+    },
+    {
+      'name': 'Raj',
+      'rent': 3025,
+      'meal': 0,
+      'bazar': 0
+    },
+    {
+      'name': 'Riaj',
+      'rent': 2875,
+      'meal': 0,
+      'bazar': 0
+    }
+  ])
 
   const handleToggleModal = () => {
     setIsOpen(!isOpen);
@@ -72,31 +93,35 @@ export default function App() {
 
         <View style={styles.memberContainer}>
           <Text style={styles.label}>Members Expenses</Text>
-          <View style={styles.memberRow}>
-            <TextInput
-              value={khanRent}
-              onChangeText={(text) => setKhanRent(text)}
-              keyboardType='numeric'
-              placeholder="Khan's Rent"
-              style={styles.memberInput}
-            />
-            <TextInput
-              value={khanBazar}
-              onChangeText={(text) => setKhanBazar(text)}
-              keyboardType='numeric'
-              placeholder="Khan's Bazar"
-              style={styles.memberInput}
-            />
-            <TextInput
-              value={khanMeal}
-              onChangeText={(text) => setKhanMeal(text)}
-              keyboardType='numeric'
-              placeholder="Khan's Meal"
-              style={styles.memberInput}
-            />
-          </View>
+          {
+            memberInfo.map(item =>
+              <View style={styles.memberRow}>
+                <TextInput
+                  value={item.rent}
+                  onChangeText={(text) => setKhanRent(text)}
+                  keyboardType='numeric'
+                  placeholder={item.name + "'s Rent"}
+                  style={styles.memberInput}
+                />
+                <TextInput
+                  value={item.bazar}
+                  onChangeText={(text) => setKhanBazar(text)}
+                  keyboardType='numeric'
+                  placeholder={item.name + "'s Bazar"}
+                  style={styles.memberInput}
+                />
+                <TextInput
+                  value={item.meal}
+                  onChangeText={(text) => setKhanMeal(text)}
+                  keyboardType='numeric'
+                  placeholder={item.name + "'s Meal"}
+                  style={styles.memberInput}
+                />
+              </View>
+            )
+          }
 
-          <View style={styles.memberRow}>
+          {/* <View style={styles.memberRow}>
             <TextInput
               value={rajRent}
               onChangeText={(text) => setRajRent(text)}
@@ -142,7 +167,7 @@ export default function App() {
               placeholder="Riaj's Meal"
               style={styles.memberInput}
             />
-          </View>
+          </View> */}
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleToggleModal}>
