@@ -23,10 +23,6 @@ export default function Output(props) {
 
         const calculatedMealRate = totalMeal !== 0 ? parseFloat((totalBazar / totalMeal).toFixed(2)) : 0;
         setMealRate(calculatedMealRate);
-
-        console.log("total bazar", totalBazar);
-        console.log("total meal", totalMeal);
-        console.log("meal rate", calculatedMealRate);
     }, [props.memberInfo]);
 
     const gasBillPerPerson = (props.gasBill / 3).toFixed(2);
@@ -87,15 +83,17 @@ export default function Output(props) {
                     </View>
 
                     {memberInfo.map(member => (
-                        <OutputPerPerson
-                            key={member.name}
-                            name={member.name}
-                            bazar={member.bazar}
-                            meal={member.meal}
-                            rent={member.rent}
-                            mealRate={mealRate}
-                            totalUtilityCostPerson={totalUtilityCostPerson}
-                        />
+                        <View style={styles.card}>
+                            <OutputPerPerson
+                                key={member.name}
+                                name={member.name}
+                                bazar={member.bazar}
+                                meal={member.meal}
+                                rent={member.rent}
+                                mealRate={mealRate}
+                                totalUtilityCostPerson={totalUtilityCostPerson}
+                            />
+                        </View>
                     ))}
 
                     <TouchableOpacity style={styles.button} onPress={() => props.setVisibility(false)}>

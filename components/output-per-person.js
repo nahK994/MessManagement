@@ -5,7 +5,7 @@ export default function OutputPerPerson(props) {
     var mealBalance = (mealCost - parseInt(props.bazar)).toFixed(2);
 
     return (
-        <View style={styles.card}>
+        <>
             <Text style={styles.headerText}>{props.name}</Text>
             <View style={styles.row}>
                 <Text style={styles.label}>Rent:</Text>
@@ -46,7 +46,7 @@ export default function OutputPerPerson(props) {
                 </View>
                 <Text style={styles.totalValue}>{(parseFloat(props.rent) + parseInt(props.totalUtilityCostPerson) + parseFloat(mealBalance)).toFixed(2)}</Text>
             </View>
-        </View>
+        </>
     );
 };
 
@@ -57,18 +57,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#e3f2fd',
         padding: 20
-    },
-    card: {
-        backgroundColor: '#ffffff',
-        borderRadius: 15,
-        padding: 20,
-        marginBottom: 20,
-        width: '90%',
-        elevation: 3, // For shadow on Android
-        shadowColor: '#000', // For shadow on iOS
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5
     },
     headerText: {
         fontSize: 22,
