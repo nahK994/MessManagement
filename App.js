@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, TextInput, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import Output from './components/output';
 
@@ -9,15 +9,6 @@ export default function App() {
   const [internetBill, setInternetBill] = useState('1000');
   const [khalaBill, setKhalaBill] = useState('2100');
   const [othersBill, setOthersBill] = useState('');
-  const [khanRent, setKhanRent] = useState('5600');
-  const [riajRent, setRiajRent] = useState('2875');
-  const [rajRent, setRajRent] = useState('3025');
-  const [khanMeal, setKhanMeal] = useState('');
-  const [riajMeal, setRiajMeal] = useState('');
-  const [rajMeal, setRajMeal] = useState('');
-  const [khanBazar, setKhanBazar] = useState('');
-  const [riajBazar, setRiajBazar] = useState('');
-  const [rajBazar, setRajBazar] = useState('');
 
   const [memberInfo, setMemberInfo] = useState([
     {
@@ -39,6 +30,48 @@ export default function App() {
       'bazar': 0
     }
   ])
+
+  const setRent = (member, rent) => {
+    setMemberInfo(
+      memberInfo.map(item => {
+        if (item.name === member.name) {
+          return {
+            ...item,
+            'rent': parseFloat(rent) || 0
+          };
+        }
+        return item;
+      })
+    )
+  }
+
+  const setBazar = (member, bazar) => {
+    setMemberInfo(
+      memberInfo.map(item => {
+        if (item.name === member.name) {
+          return {
+            ...item,
+            'bazar': parseFloat(bazar) || 0
+          };
+        }
+        return item;
+      })
+    )
+  }
+
+  const setMeal = (member, meal) => {
+    setMemberInfo(
+      memberInfo.map(item => {
+        if (item.name === member.name) {
+          return {
+            ...item,
+            'meal': parseFloat(meal) || 0
+          };
+        }
+        return item;
+      })
+    )
+  }
 
   const handleToggleModal = () => {
     setIsOpen(!isOpen);
@@ -95,24 +128,24 @@ export default function App() {
           <Text style={styles.label}>Members Expenses</Text>
           {
             memberInfo.map(item =>
-              <View style={styles.memberRow}>
+              <View style={styles.memberRow} key={item.name}>
                 <TextInput
-                  value={item.rent}
-                  onChangeText={(text) => setKhanRent(text)}
+                  value={item.rent.toString()}
+                  onChangeText={(text) => setRent(item, text)}
                   keyboardType='numeric'
                   placeholder={item.name + "'s Rent"}
                   style={styles.memberInput}
                 />
                 <TextInput
-                  value={item.bazar}
-                  onChangeText={(text) => setKhanBazar(text)}
+                  value={item.bazar.toString()}
+                  onChangeText={(text) => setBazar(item, text)}
                   keyboardType='numeric'
                   placeholder={item.name + "'s Bazar"}
                   style={styles.memberInput}
                 />
                 <TextInput
-                  value={item.meal}
-                  onChangeText={(text) => setKhanMeal(text)}
+                  value={item.meal.toString()}
+                  onChangeText={(text) => setMeal(item, text)}
                   keyboardType='numeric'
                   placeholder={item.name + "'s Meal"}
                   style={styles.memberInput}
@@ -120,54 +153,6 @@ export default function App() {
               </View>
             )
           }
-
-          {/* <View style={styles.memberRow}>
-            <TextInput
-              value={rajRent}
-              onChangeText={(text) => setRajRent(text)}
-              keyboardType='numeric'
-              placeholder="Raj's Rent"
-              style={styles.memberInput}
-            />
-            <TextInput
-              value={rajBazar}
-              onChangeText={(text) => setRajBazar(text)}
-              keyboardType='numeric'
-              placeholder="Raj's Bazar"
-              style={styles.memberInput}
-            />
-            <TextInput
-              value={rajMeal}
-              onChangeText={(text) => setRajMeal(text)}
-              keyboardType='numeric'
-              placeholder="Raj's Meal"
-              style={styles.memberInput}
-            />
-          </View>
-
-          <View style={styles.memberRow}>
-            <TextInput
-              value={riajRent}
-              onChangeText={(text) => setRiajRent(text)}
-              keyboardType='numeric'
-              placeholder="Riaj's Rent"
-              style={styles.memberInput}
-            />
-            <TextInput
-              value={riajBazar}
-              onChangeText={(text) => setRiajBazar(text)}
-              keyboardType='numeric'
-              placeholder="Riaj's Bazar"
-              style={styles.memberInput}
-            />
-            <TextInput
-              value={riajMeal}
-              onChangeText={(text) => setRiajMeal(text)}
-              keyboardType='numeric'
-              placeholder="Riaj's Meal"
-              style={styles.memberInput}
-            />
-          </View> */}
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleToggleModal}>
@@ -182,15 +167,7 @@ export default function App() {
           internetBill={internetBill}
           khalaBill={khalaBill}
           othersBill={othersBill}
-          khanRent={khanRent}
-          khanBazar={khanBazar}
-          khanMeal={khanMeal}
-          rajRent={rajRent}
-          rajBazar={rajBazar}
-          rajMeal={rajMeal}
-          riajRent={riajRent}
-          riajBazar={riajBazar}
-          riajMeal={riajMeal}
+          memberInfo={memberInfo}
         />
       </ScrollView>
     </KeyboardAvoidingView>

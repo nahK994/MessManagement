@@ -1,17 +1,40 @@
 import { View, TouchableOpacity, Text, StyleSheet, Modal, ScrollView } from 'react-native';
 import OutputPerPerson from './output-per-person';
+import { useEffect, useState } from 'react';
 
 export default function Output(props) {
-    var gasBillPerPerson = (props.gasBill / 3).toFixed(2);
-    var electricityBillPerPerson = (props.electricityBill / 3).toFixed(2);
-    var internetBillPerPerson = (props.internetBill / 3).toFixed(2);
-    var khalaBillPerPerson = (props.khalaBill / 3).toFixed(2);
-    var othersBillPerPerson = (props.othersBill / 3).toFixed(2);
-    var totalUtilityCostPerson = parseFloat((parseFloat(gasBillPerPerson) + parseFloat(electricityBillPerPerson) + parseFloat(internetBillPerPerson) + parseFloat(khalaBillPerPerson) + parseFloat(othersBillPerPerson)).toFixed(2));
+    const [memberInfo, setMemberInfo] = useState([]);
+    const [mealRate, setMealRate] = useState(0);
+    const [totalBazar, setTotalBazar] = useState(0);
+    const [totalMeal, setTotalMeal] = useState(0);
 
-    var totalMeal = parseInt(props.khanMeal) + parseInt(props.rajMeal) + parseInt(props.riajMeal);
-    var totalBazar = parseInt(props.khanBazar) + parseInt(props.rajBazar) + parseInt(props.riajBazar);
-    var mealRate = parseFloat((totalBazar / totalMeal).toFixed(2));
+    useEffect(() => {
+        let totalBazar = 0;
+        let totalMeal = 0;
+        const members = props.memberInfo.map(member => {
+            totalBazar += parseInt(member.bazar);
+            totalMeal += parseInt(member.meal);
+            return member;
+        });
+
+        setMemberInfo(members);
+        setTotalBazar(totalBazar);
+        setTotalMeal(totalMeal);
+
+        const calculatedMealRate = totalMeal !== 0 ? parseFloat((totalBazar / totalMeal).toFixed(2)) : 0;
+        setMealRate(calculatedMealRate);
+
+        console.log("total bazar", totalBazar);
+        console.log("total meal", totalMeal);
+        console.log("meal rate", calculatedMealRate);
+    }, [props.memberInfo]);
+
+    const gasBillPerPerson = (props.gasBill / 3).toFixed(2);
+    const electricityBillPerPerson = (props.electricityBill / 3).toFixed(2);
+    const internetBillPerPerson = (props.internetBill / 3).toFixed(2);
+    const khalaBillPerPerson = (props.khalaBill / 3).toFixed(2);
+    const othersBillPerPerson = (props.othersBill / 3).toFixed(2);
+    const totalUtilityCostPerson = parseFloat((parseFloat(gasBillPerPerson) + parseFloat(electricityBillPerPerson) + parseFloat(internetBillPerPerson) + parseFloat(khalaBillPerPerson) + parseFloat(othersBillPerPerson)).toFixed(2));
 
     return (
         <Modal visible={props.visibility} animationType='slide'>
@@ -63,32 +86,17 @@ export default function Output(props) {
                         </View>
                     </View>
 
-                    <OutputPerPerson
-                        name="Khan"
-                        bazar={props.khanBazar}
-                        meal={props.khanMeal}
-                        rent={props.khanRent}
-                        mealRate={mealRate}
-                        totalUtilityCostPerson={totalUtilityCostPerson}
-                    />
-
-                    <OutputPerPerson
-                        name="Raj"
-                        bazar={props.rajBazar}
-                        meal={props.rajMeal}
-                        rent={props.rajRent}
-                        mealRate={mealRate}
-                        totalUtilityCostPerson={totalUtilityCostPerson}
-                    />
-
-                    <OutputPerPerson
-                        name="Riaj"
-                        bazar={props.riajBazar}
-                        meal={props.riajMeal}
-                        rent={props.riajRent}
-                        mealRate={mealRate}
-                        totalUtilityCostPerson={totalUtilityCostPerson}
-                    />
+                    {memberInfo.map(member => (
+                        <OutputPerPerson
+                            key={member.name}
+                            name={member.name}
+                            bazar={member.bazar}
+                            meal={member.meal}
+                            rent={member.rent}
+                            mealRate={mealRate}
+                            totalUtilityCostPerson={totalUtilityCostPerson}
+                        />
+                    ))}
 
                     <TouchableOpacity style={styles.button} onPress={() => props.setVisibility(false)}>
                         <Text style={styles.buttonText}>Ok</Text>

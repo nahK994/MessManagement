@@ -12,6 +12,10 @@ export default function OutputPerPerson(props) {
                 <Text style={styles.value}>{props.rent}</Text>
             </View>
             <View style={styles.row}>
+                <Text style={styles.label}>Utility:</Text>
+                <Text style={styles.value}>{props.totalUtilityCostPerson}</Text>
+            </View>
+            <View style={styles.row}>
                 <Text style={styles.label}>Bazar:</Text>
                 <Text style={styles.value}>{props.bazar}</Text>
             </View>
