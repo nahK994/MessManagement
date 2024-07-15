@@ -14,20 +14,20 @@ export default function App() {
     {
       'name': 'Khan',
       'rent': 5600,
-      'meal': 0,
-      'bazar': 0
+      'meal': '',
+      'bazar': ''
     },
     {
       'name': 'Raj',
       'rent': 3025,
-      'meal': 0,
-      'bazar': 0
+      'meal': '',
+      'bazar': ''
     },
     {
       'name': 'Riaj',
       'rent': 2875,
-      'meal': 0,
-      'bazar': 0
+      'meal': '',
+      'bazar': ''
     }
   ])
 
